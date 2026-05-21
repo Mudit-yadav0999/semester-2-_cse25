@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Records</title>
+</head>
+<body>
+
+    <h2>Employee Records</h2>
+
+    <button onclick="displayEmployees()">Display Employees</button>
+    <button onclick="filterEmployees()">Filter Salary > 50000</button>
+    <button onclick="calculateSalary()">Calculate Total Salary</button>
+
+    <div id="output"></div>
+
+    <script>
+        // Array of employee objects
+        let employees = [
+            { id: 1, name: "Mudit", salary: 40000 },
+            { id: 2, name: "Rahul", salary: 60000 },
+            { id: 3, name: "Aman", salary: 55000 },
+            { id: 4, name: "Neha", salary: 30000 }
+        ];
+
+        // Display all employees
+        function displayEmployees() {
+            let result = "<h3>All Employees:</h3>";
+            employees.forEach(emp => {
+                result += `ID: ${emp.id}, Name: ${emp.name}, Salary: ${emp.salary} <br>`;
+            });
+            document.getElementById("output").innerHTML = result;
+        }
+
+        // Filter employees with salary > 50000
+        function filterEmployees() {
+            let filtered = employees.filter(emp => emp.salary > 50000);
+
+            let result = "<h3>Filtered Employees:</h3>";
+            filtered.forEach(emp => {
+                result += `ID: ${emp.id}, Name: ${emp.name}, Salary: ${emp.salary} <br>`;
+            });
+
+            document.getElementById("output").innerHTML = result;
+        }
+
+        // Calculate total salary
+        function calculateSalary() {
+            let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+            let avg = total / employees.length;
+
+            document.getElementById("output").innerHTML =
+                `<h3>Total Salary: ${total}</h3>
+                 <h3>Average Salary: ${avg}</h3>`;
+        }
+    </script>
+
+</body>
+</html>
