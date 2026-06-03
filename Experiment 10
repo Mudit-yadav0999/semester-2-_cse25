@@ -1,0 +1,145 @@
+package demo;
+
+// Abstract class demonstrating Abstraction
+abstract class BankAccount {
+    // Private data members - Encapsulation
+    private int accountNumber;
+    private String accountHolderName;
+    private double balance;
+    
+    // Constructor
+    public BankAccount(int accountNumber, String accountHolderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+    }
+    
+    // Getter and Setter methods - Encapsulation
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+    
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+    
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    protected void setBalance(double balance) {
+        this.balance = balance;
+    }
+    
+    // Deposit Method
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance = balance + amount;
+            System.out.println("Amount Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount!");
+        }
+    }
+    
+    // Withdraw Method
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance = balance - amount;
+            System.out.println("Amount Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid amount!");
+        }
+    }
+    
+    // Display Account Details
+    public void displayDetails() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder Name: " + accountHolderName);
+        System.out.println("Balance: " + balance);
+    }
+    
+    // Abstract Method - Abstraction
+    public abstract void calculateInterest();
+}
+
+// SavingsAccount class - Inheritance
+class SavingsAccount extends BankAccount {
+    private static final double INTEREST_RATE = 0.05; // 5% interest
+    
+    public SavingsAccount(int accountNumber, String accountHolderName, double balance) {
+        super(accountNumber, accountHolderName, balance);
+    }
+    
+    // Implementing abstract method - Abstraction
+    @Override
+    public void calculateInterest() {
+        double interest = getBalance() * INTEREST_RATE;
+        System.out.println("Savings Account Interest (5%): " + interest);
+        System.out.println("Total Balance after Interest: " + (getBalance() + interest));
+    }
+}
+
+// CurrentAccount class - Inheritance
+class CurrentAccount extends BankAccount {
+    private static final double INTEREST_RATE = 0.02; // 2% interest
+    
+    public CurrentAccount(int accountNumber, String accountHolderName, double balance) {
+        super(accountNumber, accountHolderName, balance);
+    }
+    
+    // Implementing abstract method - Abstraction
+    @Override
+    public void calculateInterest() {
+        double interest = getBalance() * INTEREST_RATE;
+        System.out.println("Current Account Interest (2%): " + interest);
+        System.out.println("Total Balance after Interest: " + (getBalance() + interest));
+    }
+}
+
+// Main class
+public class Exp10 {
+    public static void main(String[] args) {
+        System.out.println("========== BANK MANAGEMENT SYSTEM ==========\n");
+        
+        // Creating objects
+        SavingsAccount sa = new SavingsAccount(101, "Rahul Sharma", 10000);
+        CurrentAccount ca = new CurrentAccount(102, "Anita Verma", 20000);
+        
+        // Savings Account Operations
+        System.out.println("--- Savings Account ---");
+        sa.displayDetails();
+        System.out.println();
+        
+        sa.deposit(2000);
+        System.out.println("Updated Balance: " + sa.getBalance());
+        System.out.println();
+        
+        sa.calculateInterest();
+        System.out.println();
+        
+        // Current Account Operations
+        System.out.println("--- Current Account ---");
+        ca.displayDetails();
+        System.out.println();
+        
+        ca.deposit(3000);
+        System.out.println("Updated Balance: " + ca.getBalance());
+        System.out.println();
+        
+        ca.calculateInterest();
+        System.out.println();
+        
+        // Additional Operations (Optional)
+        System.out.println("--- Additional Operations ---");
+        sa.withdraw(500);
+        System.out.println("Balance after withdrawal: " + sa.getBalance());
+    }
+}
